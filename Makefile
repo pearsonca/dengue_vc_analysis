@@ -1,4 +1,9 @@
-%.rds: binarize.R %.out
+R=$(shell which Rscript)
+
+ref.rds: translate.R *.sqlite
+	$(R) $^ > $@
+
+%.rds: binarize.R %.out ref.rds
 	$(R) $^ > $@
 
 %-overview.png: overview-plot.R %.rda
